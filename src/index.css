@@ -1,5 +1,10 @@
-body, html {  background: linear-gradient( 132deg, rgb(59, 55, 106) 5.00%, rgb(0, 143, 186) 45.00%, rgb(255, 149, 213) 90.00%);
+body, html {  
 height: 100%;
+
+margin: 0;
+padding:0;
+font-family:"Courier New",Courier, monospace;
+background: linear-gradient( 132deg, rgb(59, 55, 106) 5.00%, rgb(0, 143, 186) 45.00%, rgb(255, 149, 213) 90.00%);
 
 }
 
