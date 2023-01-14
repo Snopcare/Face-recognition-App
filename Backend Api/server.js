@@ -31,6 +31,12 @@ app.get('/',(req,res) => {
 })
 
 app.post('/signin', (req,res) => {
+	bcrypt.compare("apples", '$2a$10$YM3PXv6uHuA0hckAbI/cjuNDdIKYb4gVqf2PnvuKdqMpzyOJhk68O', function(err, res) {
+    console.log('first guess', res)
+	});
+	bcrypt.compare("veggies", '$2a$10$YM3PXv6uHuA0hckAbI/cjuNDdIKYb4gVqf2PnvuKdqMpzyOJhk68O', function(err, res) {
+    console.log('second guess', res)
+	});
 	if (req.body.email === database.users[0].email &&
 	 req.body.password === database.users[0].password) {
 	res.json('success');
@@ -84,17 +90,6 @@ const { id } = req.body;
 			res.status(400).json('not found');
 	}
 })
-
-// Load hash from your password DB.
-// bcrypt.compare("bacon", hash, function(err, res) {
-//     // res == true
-// });
-// bcrypt.compare("veggies", hash, function(err, res) {
-//     // res = false
-// });
-
-
-
 app.listen(3003, () => {
 	console.log('app is running on port 3003');
 })
