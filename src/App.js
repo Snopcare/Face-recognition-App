@@ -78,9 +78,28 @@ class App extends Component {
     this.setState({imageUrl: this.state.input});
     app.models
     .predict(
-          Clarifai.FACE_DETECT_MODEL, 
-          this.state.input)
-          .then(response => this.displayFaceBox(this.calculateFaceLocation(response)))
+    { 
+          id: 'face-detection',
+          name: 'face-detection',
+          version: '45fb9a671625463fa646c3523a3087d5',
+          type: 'visual-detector',
+          }, this.state.input)
+          .then(response => {
+            if(response) {
+              fetch('http://localhost:3003/image', {
+                method: 'put',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({
+                id: this.state.user.id
+              })
+             })
+          .then(response => response.json())
+          .then(count => {
+            this.setState(Object.assign(this.state.user, {entries: count}))
+            }) 
+          }     
+            this.displayFaceBox(this.calculateFaceLocation(response)) 
+         })
           .catch(err => console.log(err));
           }
 
@@ -102,7 +121,7 @@ class App extends Component {
         { route === 'home'
         ?   <div>
             <Logo />
-            <Rank />
+            <Rank name={this.state.user.name} entries={this.state.user.entries}/>
             <ImageLinkForm 
             onInputChange={this.onInputChange} 
             onButtonSubmit={this.onButtonSubmit}/>
@@ -110,7 +129,7 @@ class App extends Component {
           </div>
         : (
           route === 'signin' 
-          ? <Signin onRouteChange={this.onRouteChange}/>
+          ? <Signin loadUser={this.loadUser} onRouteChange={this.onRouteChange}/>
           : <Register loadUser={this.loadUser} onRouteChange={this.onRouteChange}/>
           )
         }      
