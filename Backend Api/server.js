@@ -41,7 +41,7 @@ app.post('/signin', (req,res) => {
 	// });
 	if (req.body.email === database.users[0].email &&
 	 req.body.password === database.users[0].password) {
-	res.json('success');
+	res.json(database.users[0]);
 } else {
 	res.status(400).json('error logging in');
 }
@@ -57,6 +57,7 @@ app.post('/register',(req,res) => {
 		id:'125',
 		name: name,
 		email: email,
+		password: password,
 		entries: 0,
 		joined: new Date()
 	})
