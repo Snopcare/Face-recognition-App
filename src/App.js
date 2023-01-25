@@ -83,7 +83,8 @@ class App extends Component {
           name: 'face-detection',
           version: '45fb9a671625463fa646c3523a3087d5',
           type: 'visual-detector',
-          }, this.state.input)
+          }, 
+          this.state.input)
           .then(response => {
             if(response) {
               fetch('http://localhost:3003/image', {
