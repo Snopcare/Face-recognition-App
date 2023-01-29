@@ -14,10 +14,7 @@ const app = new Clarifai.App({
   apiKey: '143b8bd892b84302a4a0c9471ad60b62'
 });
 
-class App extends Component {
-  constructor() {
-    super();
-    this.state = {
+const initialState = {
       input:'',
       imageUrl:'',
       box: {},
@@ -30,7 +27,12 @@ class App extends Component {
         entries: 0,
         joined: ''
       }
-      }
+}
+
+class App extends Component {
+  constructor() {
+    super();
+    this.state = initialState;
   }
 
   // componnentDidMount() {
@@ -97,16 +99,16 @@ class App extends Component {
           .then(response => response.json())
           .then(count => {
             this.setState(Object.assign(this.state.user, {entries: count}))
-            }) 
+          })
           }     
-            this.displayFaceBox(this.calculateFaceLocation(response)) 
-         })
+            this.displayFaceBox(this.calculateFaceLocation(response))
+          })
           .catch(err => console.log(err));
           }
 
   onRouteChange = (route) => {
     if ( route === 'signout') {
-      this.setState({isSignedIn: false})
+      this.setState(initialState)
     } else if ( route === 'home') {
       this.setState({isSignedIn: true})
     }      
