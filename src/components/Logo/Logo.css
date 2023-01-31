@@ -1,12 +1,12 @@
 .Tilt {
 background: linear-gradient( 132deg, rgb(59, 55, 106) 0.00%, rgb(0, 143, 186) 50.00%, rgb(255, 149, 213) 100.00%);
 text-align: left;
+border-radius: 50%;
 }
 
 img {
 
 height: 13em;
 width: 20em;
-
 }
 
