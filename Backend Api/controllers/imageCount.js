@@ -1,4 +1,74 @@
-const imageCount = (req,res, db) => {
+// Old way
+
+// const Clarifai = require('clarifai');
+// console.log(Clarifai)
+
+// const app = new Clarifai.App({
+//   apiKey: '143b8bd892b84302a4a0c9471ad60b62'
+// });
+
+// // New way
+// const USER_ID = 'pr2128vs0ns4';
+// // Your PAT (Personal Access Token) can be found in the portal under Authentification
+// const PAT = 'f6b630c741664a75bfcf117bba01252b';
+// const APP_ID = 'my-first-application';
+
+
+
+
+const {ClarifaiStub, grpc} = require("clarifai-nodejs-grpc");
+
+const stub = ClarifaiStub.grpc();
+
+const metadata = new grpc.Metadata();
+metadata.set("authorization", "Key 143b8bd892b84302a4a0c9471ad60b62");
+
+
+
+const handleApiCall = (req, res) => {
+	stub.PostModelOutputs(
+	    {
+	        // This is the model ID of a publicly available General model. You may use any other public or custom model ID.
+	        model_id: "face-detection",
+	        inputs: [{data: {image: {url: req.body.input}}}]
+	    },
+	    metadata,
+	    (err, response) => {
+	        if (err) {
+	            console.log("Error: " + err);
+	            return;
+	        }
+
+	        if (response.status.code !== 10000) {
+	            console.log("Received failed status: " + response.status.description + "\n" + response.status.details);
+	            return;
+	        }
+	        
+	        // console.log("Predicted concepts, with confidence values:")
+	        for (const c of response.outputs[0].data.concepts) {
+	            console.log(c.name + ": " + c.value);
+	        }
+	        res.json(response)
+	    }
+	);
+}
+
+// const handleApiCall = (req, res) => {
+// app.models
+//     .predict(
+//     { 
+//           id: 'face-detection',
+//           name: 'face-detection',
+//           version: '6dc7e46bc9124c5c8824be4822abe105',
+//           type: 'visual-detector',
+//           }, req.body.input)
+//     .then(data => {
+//     	res.json(data);
+//     })
+//     .catch(err => res.status(400).json('unable to work with API'))
+// }
+
+const imageCount = (req, res, db) => {
 const { id } = req.body;
 db('users').where('id', '=',id)
 .increment('entries',1)
@@ -10,5 +80,6 @@ db('users').where('id', '=',id)
 }
 
 module.exports = { 
-imageCount
+imageCount,
+handleApiCall
 }
