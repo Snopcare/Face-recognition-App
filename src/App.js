@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import ParticlesBg from 'particles-bg';
-import Clarifai from 'clarifai';
 import Navigation from './components/Navigation/Navigation';
 import Logo from './components/Logo/Logo';
 import ImageLinkForm from './components/ImageLinkForm/ImageLinkForm';
@@ -9,10 +8,6 @@ import Signin from './components/Signin/Signin';
 import Register from './components/Register/Register';
 import Rank from './components/Rank/Rank';
 import './App.css';
-
-const app = new Clarifai.App({
-  apiKey: '143b8bd892b84302a4a0c9471ad60b62'
-});
 
 const initialState = {
       input:'',
@@ -35,11 +30,6 @@ class App extends Component {
     this.state = initialState;
   }
 
-  // componnentDidMount() {
-  //   fetch('localhost:3003')
-  //   .then(response => response.json())
-  //   .then(console.log)
-  // }
 
   loadUser = (data) => {
     this.setState ({user: {
@@ -52,7 +42,6 @@ class App extends Component {
     }
   
 
-
   calculateFaceLocation = (data) => {
     const clarifaiFace = data.outputs[0].data.regions[0].region_info.bounding_box;
     const image = document.getElementById('inputimage');
@@ -61,16 +50,17 @@ class App extends Component {
     return {
       leftCol: clarifaiFace.left_col * width,
       topRow: clarifaiFace.top_row * height,
-      rigthCol: width - (clarifaiFace.right_col * width),
-      bottomRow: height - (clarifaiFace.bottom_row * height),
+      rigthCol: width - clarifaiFace.right_col * width,
+      bottomRow: height - clarifaiFace.bottom_row * height,
     }
   }
 
   displayFaceBox = (box) => {
-    this.setState({box: box});
-  }
-
-
+    this.setState({box},
+      () => { 
+        return this.state.box;
+        });
+      }
 
   onInputChange = (event) => { 
     this.setState({input: event.target.value});
@@ -78,16 +68,15 @@ class App extends Component {
 
   onButtonSubmit = () => {
     this.setState({imageUrl: this.state.input});
-    app.models
-    .predict(
-    { 
-          id: 'face-detection',
-          name: 'face-detection',
-          version: '45fb9a671625463fa646c3523a3087d5',
-          type: 'visual-detector',
-          }, 
-          this.state.input)
-          .then(response => {
+      fetch('http://localhost:3003/imageurl', {
+                method: 'post',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({
+                input: this.state.input
+              })
+            })
+        .then(response => response.json())
+        .then(response => {
             if(response) {
               fetch('http://localhost:3003/image', {
                 method: 'put',
@@ -119,7 +108,7 @@ class App extends Component {
     const { isSignedIn, imageUrl, route, box } = this.state;
         return(
     <div className="App">
-        <ParticlesBg className="particles" type="cobweb" num={80} bg={true}/>}
+        <ParticlesBg className="particles" type="cobweb" num={150} bg={true}/>
         <Navigation isSignedIn={isSignedIn} onRouteChange={this.onRouteChange}/>
         { route === 'home'
         ?   <div>
@@ -143,3 +132,43 @@ class App extends Component {
 }
 
 export default App;
+
+
+//     const IMAGE_URL = this.state.input;
+//     const USER_ID = "clarifai";
+//     const PAT = "f6b630c741664a75bfcf117bba01252b";
+//     const APP_ID = "main";
+//     const MODEL_ID = "face-detection";
+//     const MODEL_VERSION_ID = "6dc7e46bc9124c5c8824be4822abe105";
+  
+
+//     const raw = JSON.stringify({
+//         "user_app_id": {
+//             "user_id": USER_ID,
+//             "app_id": APP_ID
+//         },
+//         "inputs": [{ 
+//                 "data": {
+//                     "image": {
+//                         "url": IMAGE_URL
+//                     }
+//                 }
+//             }
+//         ]
+//     });
+
+//     const requestOptions = {
+//         method: 'POST',
+//         headers: {
+//             'Accept': 'application/json',
+//             'Authorization': 'Key ' + PAT
+//         },
+//         body: raw
+//     };
+
+//     fetch("https://api.clarifai.com/v2/models/" + MODEL_ID + "/versions/" + MODEL_VERSION_ID + "/outputs", requestOptions)
+//         .then(response => response.json())
+//         .then(response => console.log(response))
+//         .then(result => this.displayFaceBox(this.calculateFaceLocation(result)))
+//         .catch(error => console.log('error', error));
+// }
