@@ -1,34 +1,15 @@
-// Old way
-
-// const Clarifai = require('clarifai');
-// console.log(Clarifai)
-
-// const app = new Clarifai.App({
-//   apiKey: '143b8bd892b84302a4a0c9471ad60b62'
-// });
-
-// // New way
-// const USER_ID = 'pr2128vs0ns4';
-// // Your PAT (Personal Access Token) can be found in the portal under Authentification
-// const PAT = 'f6b630c741664a75bfcf117bba01252b';
-// const APP_ID = 'my-first-application';
-
-
-
-
 const {ClarifaiStub, grpc} = require("clarifai-nodejs-grpc");
 
 const stub = ClarifaiStub.grpc();
 
 const metadata = new grpc.Metadata();
-metadata.set("authorization", "Key 143b8bd892b84302a4a0c9471ad60b62");
+metadata.set("authorization", "Key YOUR-CLARIFAI-KEY");
 
 
 
 const handleApiCall = (req, res) => {
 	stub.PostModelOutputs(
 	    {
-	        // This is the model ID of a publicly available General model. You may use any other public or custom model ID.
 	        model_id: "face-detection",
 	        inputs: [{data: {image: {url: req.body.input}}}]
 	    },
