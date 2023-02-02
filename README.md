@@ -34,7 +34,7 @@ In the Back-End Express and the Database handled using PostgreSQL.
   </tr>
   <tr>
 		<td>Back-End</td>
-		<td>npm packages (express, bcrypt-nodejs, body-parser, <a href="https://github.com/Clarifai/clarifai-nodejs-grpc/blob/master/README.md">clarifai-nodejs-grpc</a>, cors) </td>
+		<td>npm packages (express, , body-parser, <a href="https://github.com/Clarifai/clarifai-nodejs-grpc/blob/master/README.md">clarifai-nodejs-grpc</a>, cors) </td>
 	</tr>
 	<tr>
 		<td>API Testing</td>
@@ -42,7 +42,7 @@ In the Back-End Express and the Database handled using PostgreSQL.
 	</tr>
 	<tr>
 		<td>Database</td>
-		<td>PostgreSQL, pgAdmin 4, npm packages (knex, pg)</td>
+		<td>PostgreSQL, pgAdmin 4, npm packages (bcrypt-nodejs,knex, pg)</td>
 	</tr>
     <tr>
 		<td>Deployment</td>
