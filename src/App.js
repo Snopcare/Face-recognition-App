@@ -136,7 +136,7 @@ export default App;
 
 //     const IMAGE_URL = this.state.input;
 //     const USER_ID = "clarifai";
-//     const PAT = "f6b630c741664a75bfcf117bba01252b";
+//     const PAT = "";
 //     const APP_ID = "main";
 //     const MODEL_ID = "face-detection";
 //     const MODEL_VERSION_ID = "6dc7e46bc9124c5c8824be4822abe105";
