@@ -1,70 +1,71 @@
-# Getting Started with Create React App
+# AI powered Face Recognition App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Full Stack Web app which uses the <a href="https://www.clarifai.com/products/armada-ml-prediction">Clarifai API</a> to identify a face in a picture based on it's Face Detection model.
 
-## Available Scripts
+<img src="https://github.com/Snopcare/Face-recognition-App/blob/master/src/Face%20detection.JPG" style="max-width: 100%;" alt="FaceRecognition" />
 
-In the project directory, you can run:
+## Overview
+Front-End uses JS with React library. 
+Node.js keeps all connected and provides with npm useful dynamic visuals.
 
-### `npm start`
+In the Back-End Express and the Database handled using PostgreSQL. 
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
 
-### `npm test`
+## Tech stack
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+<table>
+<thead>
+<tr>
+<th>Area</th>
+<th>Technology</th>
 
-### `npm run build`
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+</tr>
+</thead>
+<tbody>
+	<tr>
+		<td>Front-End</td>
+		<td>Javascript, HTML5, CSS3, npm packages (create-react-app, tachyons, react-parallax-tilt, particle-bg) </td>
+	</tr>
+	<tr>
+		<td>Runtime environment</td>
+		<td>Node.js, npm package nodemon</td>
+  </tr>
+  <tr>
+		<td>Back-End</td>
+		<td>npm packages (express, bcrypt-nodejs, body-parser, <a href="https://github.com/Clarifai/clarifai-nodejs-grpc/blob/master/README.md">clarifai-nodejs-grpc</a>, cors) </td>
+	</tr>
+	<tr>
+		<td>API Testing</td>
+		<td>Postman</td>
+	</tr>
+	<tr>
+		<td>Database</td>
+		<td>PostgreSQL, pgAdmin 4, npm packages (knex, pg)</td>
+	</tr>
+    <tr>
+		<td>Deployment</td>
+		<td>Netlify</td>
+	</tr>
+</tbody>
+</table>
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-### `npm run eject`
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+## Screenshots
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+### Register 
+Registered users name and Email is stored in a database using PostgreSQL and password hashed using Bcrypt.
+<img src="https://github.com/Snopcare/Face-recognition-App/blob/master/src/Register.JPG" style="max-width: 100%;" alt="FaceRecognition" />
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+### Sign in
+<img src="https://github.com/Snopcare/Face-recognition-App/blob/master/src/SignIn.JPG" style="max-width: 100%;" alt="FaceRecognition" />
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+## Acknowledgements
 
-## Learn More
+Big thanks to <a href="https://github.com/aneagoie/face-recognition-brain">Andrei Neagoie</a> for the <a href="https://www.udemy.com/the-complete-web-developer-zero-to-mastery/">complete Web developer course</a>.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
-To learn React, check out the [React documentation](https://reactjs.org/).
 
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
