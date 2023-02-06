@@ -6,9 +6,9 @@ Full Stack Web app which uses the <a href="https://www.clarifai.com/products/arm
 
 ## Overview
 Front-End uses JS with React library. 
-Node.js keeps all connected and provides with npm useful dynamic visuals.
+Node.js keeps all connected and provides with npm packages dynamic visuals.
 
-In the Back-End Express and the Database handled using PostgreSQL. 
+In the Back-End Express and the Database handled using PostgresSQL. 
 
 
 
