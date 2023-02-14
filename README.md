@@ -46,7 +46,7 @@ In the Back-End Express and the Database handled using PostgresSQL.
 	</tr>
     <tr>
 		<td>Deployment</td>
-		<td>Netlify</td>
+		<td>Render</td>
 	</tr>
 </tbody>
 </table>
