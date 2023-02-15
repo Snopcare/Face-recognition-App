@@ -68,32 +68,74 @@ class App extends Component {
 
   onButtonSubmit = () => {
     this.setState({imageUrl: this.state.input});
-      fetch('https://face-recognition-l4d4.onrender.com/imageurl', {
-                method: 'post',
-                headers: {'Content-Type': 'application/json'},
-                body: JSON.stringify({
-                input: this.state.input
-              })
-            })
+
+    const IMAGE_URL = this.state.input;
+    const USER_ID = "clarifai";
+    const PAT = "f6b630c741664a75bfcf117bba01252b";
+    const APP_ID = "main";
+    const MODEL_ID = "face-detection";
+    const MODEL_VERSION_ID = "6dc7e46bc9124c5c8824be4822abe105";
+
+    const raw = JSON.stringify({
+        "user_app_id": {
+            "user_id": USER_ID,
+            "app_id": APP_ID
+        },
+        "inputs": [{ 
+                "data": {
+                    "image": {
+                        "url": IMAGE_URL
+                    }
+                }
+            }
+        ]
+    });
+
+    const requestOptions = {
+        method: 'POST',
+        headers: {
+            'Accept': 'application/json',
+            'Authorization': 'Key ' + PAT
+        },
+        body: raw
+    };
+
+    fetch("https://api.clarifai.com/v2/models/" + MODEL_ID + "/versions/" + MODEL_VERSION_ID + "/outputs", requestOptions)
         .then(response => response.json())
-        .then(response => {
-            if(response) {
-              fetch('https://face-recognition-l4d4.onrender.com/image', {
-                method: 'put',
-                headers: {'Content-Type': 'application/json'},
-                body: JSON.stringify({
-                id: this.state.user.id
-              })
-             })
-          .then(response => response.json())
-          .then(count => {
-            this.setState(Object.assign(this.state.user, {entries: count}))
-          })
-          }     
-            this.displayFaceBox(this.calculateFaceLocation(response))
-          })
-          .catch(err => console.log(err));
-          }
+        // .then(response => console.log(response))
+        .then(result => this.displayFaceBox(this.calculateFaceLocation(result)))
+        .increment(Rank.entries,1)
+        .catch(error => console.log('error', error));
+}
+
+
+
+      // fetch('https://face-recognition-l4d4.onrender.com/imageurl', {
+      //           method: 'post',
+      //           headers: {'Content-Type': 'application/json'},
+      //           body: JSON.stringify({
+      //           input: this.state.input
+      //         })
+      //       })
+      //   .then(response => response.json())
+      //   .then(response => {
+      //       if(response) {
+      //         fetch('https://face-recognition-l4d4.onrender.com/image', {
+      //           method: 'put',
+      //           headers: {'Content-Type': 'application/json'},
+      //           body: JSON.stringify({
+      //           id: this.state.user.id
+      //         })
+      //        })
+      //     .then(response => response.json())
+      //     .then(count => {
+      //       this.setState(Object.assign(this.state.user, {entries: count}))
+      //     })
+      //     }     
+      //       this.displayFaceBox(this.calculateFaceLocation(response))
+      //     })
+      //     .catch(err => console.log(err));
+          // }
 
   onRouteChange = (route) => {
     if ( route === 'signout') {
@@ -164,7 +206,7 @@ export default App;
 
 //     const IMAGE_URL = this.state.input;
 //     const USER_ID = "clarifai";
-//     const PAT = "";
+//     const PAT = "f6b630c741664a75bfcf117bba01252b";
 //     const APP_ID = "main";
 //     const MODEL_ID = "face-detection";
 //     const MODEL_VERSION_ID = "6dc7e46bc9124c5c8824be4822abe105";
